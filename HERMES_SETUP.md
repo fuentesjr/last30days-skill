@@ -4,8 +4,8 @@ This guide covers installing last30days on Hermes AI Agent.
 
 ## Prerequisites
 
-1. **Hermes installed** - See https://github.com/mercurial-tf/hermes
-2. **Python 3.12+** - `brew install python@3.12` or similar
+1. **Hermes installed** - See https://github.com/NousResearch/hermes-agent
+2. **Python 3.12+** (3.13 and 3.14 also work) - `brew install python@3.12` or similar
 3. **yt-dlp** (optional, for YouTube) - `brew install yt-dlp`
 
 ## Installation
@@ -26,12 +26,24 @@ This will auto-detect Hermes and deploy to `~/.hermes/skills/research/last30days
 ### Option 2: Manual Copy
 
 ```bash
-# Create directory
-mkdir -p ~/.hermes/skills/research/last30days
+# Create directories
+mkdir -p ~/.hermes/skills/research/last30days/scripts/lib
 
-# Copy files
-cp -r scripts ~/.hermes/skills/research/last30days/
-cp .hermes-plugin/SKILL.md ~/.hermes/skills/research/last30days/
+# Copy SKILL.md (use Hermes-specific version if available)
+cp .hermes-plugin/SKILL.md ~/.hermes/skills/research/last30days/SKILL.md
+
+# Copy main scripts
+cp scripts/last30days.py scripts/watchlist.py scripts/briefing.py scripts/store.py \
+  ~/.hermes/skills/research/last30days/scripts/
+
+# Copy library modules
+cp scripts/lib/*.py ~/.hermes/skills/research/last30days/scripts/lib/
+
+# Copy vendor directory if present
+[ -d scripts/lib/vendor ] && cp -r scripts/lib/vendor ~/.hermes/skills/research/last30days/scripts/lib/
+
+# Copy fixtures if present
+[ -d fixtures ] && cp -r fixtures ~/.hermes/skills/research/last30days/
 ```
 
 ## Usage
@@ -73,11 +85,16 @@ On first run, the skill will guide you through setup:
 - **Hacker News** - Tech discussions via Algolia
 - **Polymarket** - Prediction markets
 - **YouTube** - Search and transcripts (requires yt-dlp)
+- **GitHub** - Repository discussions, issues, and releases
+- **Perplexity** - AI-powered web search and research summaries
 
 ### Requires API Key
 - **X/Twitter** - xAI API key or browser cookies
 - **TikTok** - ScrapeCreators API
 - **Instagram** - ScrapeCreators API
+- **Bluesky** - Bluesky API credentials
+- **Threads** - Meta/Threads API credentials
+- **Pinterest** - Pinterest API credentials
 - **Web Search** - Brave Search API
 
 ## Troubleshooting
@@ -101,7 +118,7 @@ pip install yt-dlp
 ### Check what's configured
 ```bash
 cd ~/.hermes/skills/research/last30days
-python3.12 scripts/last30days.py --diagnose
+python3 scripts/last30days.py --diagnose
 ```
 
 ## Updating
@@ -117,5 +134,6 @@ bash scripts/sync.sh
 ## Support
 
 - Original repo: https://github.com/mvanhorn/last30days-skill
-- Hermes: https://github.com/mercurial-tf/hermes
+- Hermes Agent: https://hermes-agent.nousresearch.com
+- Hermes Agent repo: https://github.com/NousResearch/hermes-agent
 - Issues: Please report in the original repo
