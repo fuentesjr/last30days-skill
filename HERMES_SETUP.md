@@ -26,24 +26,12 @@ This will auto-detect Hermes and deploy to `~/.hermes/skills/research/last30days
 ### Option 2: Manual Copy
 
 ```bash
-# Create directories
-mkdir -p ~/.hermes/skills/research/last30days/scripts/lib
+# Create directory
+mkdir -p ~/.hermes/skills/research/last30days
 
-# Copy SKILL.md (use Hermes-specific version if available)
-cp .hermes-plugin/SKILL.md ~/.hermes/skills/research/last30days/SKILL.md
-
-# Copy main scripts
-cp scripts/last30days.py scripts/watchlist.py scripts/briefing.py scripts/store.py \
-  ~/.hermes/skills/research/last30days/scripts/
-
-# Copy library modules
-cp scripts/lib/*.py ~/.hermes/skills/research/last30days/scripts/lib/
-
-# Copy vendor directory if present
-[ -d scripts/lib/vendor ] && cp -r scripts/lib/vendor ~/.hermes/skills/research/last30days/scripts/lib/
-
-# Copy fixtures if present
-[ -d fixtures ] && cp -r fixtures ~/.hermes/skills/research/last30days/
+# Copy files
+cp -r scripts ~/.hermes/skills/research/last30days/
+cp .hermes-plugin/SKILL.md ~/.hermes/skills/research/last30days/
 ```
 
 ## Usage
@@ -134,6 +122,5 @@ bash scripts/sync.sh
 ## Support
 
 - Original repo: https://github.com/mvanhorn/last30days-skill
-- Hermes Agent: https://hermes-agent.nousresearch.com
 - Hermes Agent repo: https://github.com/NousResearch/hermes-agent
 - Issues: Please report in the original repo
